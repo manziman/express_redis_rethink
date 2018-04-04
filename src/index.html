@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Websockets Redis</title>
+    </head>
+    <body>
+        <fieldset>
+            <legend><h2>Enter channel name to subscribe</h2></legend>
+            <p>
+                <label>Channel name</label>
+                <input type="text" id="channelname" value="channelx" />
+            </p>
+        </fieldset>
+        <button onclick="selectchannel()">Select</button>
+        <fieldset>
+            <legend><h2>Channel messages</h2></legend>
+            <ul id="messages">
+            </ul>
+        </fieldset>
+    </body>
+</html>
+<script>
+    // Create new websocket connection
+    var ws = new WebSocket('ws://localhost:9090/monitor');
+
+    // Handle connection opening
+    ws.onopen = function () {
+        console.log("Websocket connected");
+    }
+
+    // Select channel on submit
+    function selectchannel() {
+        ws.send(document.getElementById("channelname").value);
+    }
+
+    // receive message
+    ws.onmessage = function (message) {
+        console.log(message);
+        // Create a new list item based on message
+        var newmessage = document.createElement("li");
+        var text = document.createTextNode(message.data);
+        newmessage.appendChild(text);
+        
+        // Append to the messages list
+        document.getElementById("messages").appendChild(newmessage);
+    }
+</script>

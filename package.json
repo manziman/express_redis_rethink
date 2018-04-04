@@ -1,0 +1,22 @@
+{
+  "name": "express_redis_rethink",
+  "version": "1.0.0",
+  "description": "Express websockets app for integrating redis and rethinkdb",
+  "main": "server.js",
+  "scripts": {
+    "test": "PORT=9090 node src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/manziman/express_redis_rethink.git"
+  },
+  "author": "manziman",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.16.3",
+    "redis": "^2.8.0",
+    "rethinkdb": "^2.3.3",
+    "ws": "^5.1.0"
+  }
+}
