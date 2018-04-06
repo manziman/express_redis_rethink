@@ -36,13 +36,18 @@ wss.on('error', function (err) {
     consle.log(err);
 });
 
+// Heartbeat
+function heartbeat () {
+    this.isAlive = true;
+}
+
 // Define Websockets listener callbacks for
 // handling incoming connections
 wss.on('connection', function (ws) {
 
     // Live connection detection
     ws.isAlive = true;
-    ws.on('pong', () => {this.isAlive = true});
+    ws.on('pong', heartbeat);
 
     // Log closed connections
     ws.on('close', function (code, reason) {
@@ -116,15 +121,15 @@ wss.on('connection', function (ws) {
 
 // Check each Websockets client connections to see if it is 
 // still alive. If not, terminate the websocket.
-/*var clientCheck = setInterval(function ping() {
+var clientCheck = setInterval(function ping() {
     wss.clients.forEach(function each(ws) {
         if (ws.isAlive == false) {
             return ws.terminate();
         }
         ws.isAlive = false;
-        ws.ping(() => {});
+        ws.ping((err) => {Error(err)});
     });
-}, 1000);*/
+}, 1000);
 
 // Start HTTP server on either port 8080 or the port specified
 // by the environment variable PORT
