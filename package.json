@@ -4,8 +4,8 @@
   "description": "Express websockets app for integrating redis and rethinkdb",
   "main": "server.js",
   "scripts": {
-    "test": "PORT=9090 node src/server.js",
-    "start": "node src/server.js"
+    "test": "mocha test/test.js",
+    "start": "PORT=9090 node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -14,9 +14,13 @@
   "author": "manziman",
   "license": "GPL-3.0",
   "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "express": "^4.16.3",
+    "mocha": "^5.0.5",
     "redis": "^2.8.0",
     "rethinkdb": "^2.3.3",
+    "websocket": "^1.0.25",
     "ws": "^5.1.0"
   }
 }

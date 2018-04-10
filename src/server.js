@@ -56,7 +56,7 @@ wss.on('connection', function (ws) {
 
     // Create a Redis client to subscribe to the
     // channel and receive messages
-    var subscriber = Redis.createClient();
+    // var subscriber = Redis.createClient();
     
     // Handle reception of Websockets messages from 
     // speaker client. 
@@ -65,7 +65,7 @@ wss.on('connection', function (ws) {
         // Switch statement to determine which channel
         // to subscribe to.
         switch (message) {
-            case 'channel1':
+            /*case 'channel1':
                 if (subscriber.subscribe('channel1')) {
                     ws.send("You are subscribed to channel1");
                 } else {
@@ -85,7 +85,7 @@ wss.on('connection', function (ws) {
                 } else {
                     ws.send("Subscription to channel3 failed!");
                 }
-                break;
+                break;*/
             case 'rethinkdb':
                 if (connection.open) {
                     ws.send("Waiting for changes to RethinkDB table 'test'");
@@ -108,10 +108,10 @@ wss.on('connection', function (ws) {
 
     // Define handling of receipt of message on
     // Redis channel.
-    subscriber.on('message', function (channel, message) {
+    /*subscriber.on('message', function (channel, message) {
         console.log("Message from redis: ", message, " on channel: ", channel, " of type: ", typeof(message));
         ws.send("Message received from redis: " + message + " on channel: " + channel);
-    });
+    });*/
 
     // Verify connection with immediate response to 
     // speaker.
@@ -136,3 +136,5 @@ var clientCheck = setInterval(function ping() {
 server.listen(process.env.PORT || 8080, function () {
     console.log("Server started on port " + server.address().port);
 });
+
+module.exports = app;
