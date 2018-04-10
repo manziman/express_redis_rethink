@@ -24,9 +24,7 @@ describe('', function () {
             rdbconn = conn;
             rdb.db('test').tableList().run(rdbconn, function (err, result) {
                 if (err) throw err;
-                console.log(result);
                 if (result[0] != 'messages') {
-                    console.log("Creating messages");
                     rdb.db('test').tableCreate('messages').run(rdbconn, function (err, result) {
                         if (err) throw err;
                         done();
@@ -60,6 +58,7 @@ describe('', function () {
             if (conn.connected) {
                 connection = conn;
                 connection.once('message', function (message) {
+                    expect(typeof(message.utf8Data)).to.equal('string');
                     expect(message.utf8Data).equal("Websocket connection established.");
                     done();
                 });
@@ -71,6 +70,7 @@ describe('', function () {
     it('should confirm Rethinkdb connection', function (done) {
         if (connection.connected) {
             connection.once('message', function (message) {
+                expect(typeof(message.utf8Data)).to.equal('string');
                 expect(message.utf8Data).equal("Waiting for changes to RethinkDB table 'test'");
                 done();
             });
@@ -83,7 +83,6 @@ describe('', function () {
             connection.once('message', function (message) {
                 expect(typeof(JSON.parse(message.utf8Data))).to.equal('object');
                 data = JSON.parse(message.utf8Data)
-                console.log(typeof(message.utf8Data));
                 expect(data.new_val.messagetype).to.equal("test message");
                 expect(data.new_val.data).to.equal("test string data");
                 done();
