@@ -23,7 +23,7 @@ var server = http.createServer(app);
 
 // Create connection to Rethinkdb
 var connection = null;
-rdb.connect( {host: 'localhost', port: 28015}, function(err, conn) {
+rdb.connect( {host: 'rethinkdb', port: 28015}, function(err, conn) {
     if (err) throw err;
     connection = conn;
 });
