@@ -4,9 +4,11 @@ WORKDIR /srv/node-app
 
 RUN npm i -g npm
 
-COPY . .
+COPY ./package.json .
 
-RUN npm install
+RUN npm install --production
+
+COPY . .
 
 EXPOSE 9090
 
