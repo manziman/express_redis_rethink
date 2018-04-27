@@ -88,15 +88,15 @@ wss.on('connection', function (ws) {
                 break;*/
             case 'rethinkdb':
                 if (connection.open) {
-                    ws.send("Waiting for changes to RethinkDB table 'test'");
-                    rdb.db('test').table('messages').changes().run(connection, function (err, cursor) {
+                    rdb.db('test').table('plugins').run(connection, function (err, cursor) {
                         if (err) throw err;
                         cursor.each(function (err, row) {
                             if (err) throw err;
                             ws.send(JSON.stringify(row, null, 2));
                         });
                     });
-                    rdb.db('test').table('plugins').changes().run(connection, function (err, cursor) {
+                    ws.send("Waiting for changes to RethinkDB table 'test'");
+                    rdb.db('test').table('messages').changes().run(connection, function (err, cursor) {
                         if (err) throw err;
                         cursor.each(function (err, row) {
                             if (err) throw err;
