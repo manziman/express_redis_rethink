@@ -96,6 +96,13 @@ wss.on('connection', function (ws) {
                             ws.send(JSON.stringify(row, null, 2));
                         });
                     });
+                    rdb.db('test').table('plugins').changes().run(connection, function (err, cursor) {
+                        if (err) throw err;
+                        cursor.each(function (err, row) {
+                            if (err) throw err;
+                            ws.send(JSON.stringify(row, null, 2));
+                        });
+                    });
                 } else {
                     ws.send("Database not connected!");
                 }
